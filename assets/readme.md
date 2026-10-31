@@ -1,1 +1,7 @@
-资料放这里。图示、硬件清单、论文链接等, 例如 assets/img/ 存结构图。
+# assets | 资料
+
+图、清单、参考文献，以后用得上的都塞这。
+
+Figures, BOM and references - anything worth keeping later.
+
+img/ - 结构图和实机照片 | build photos and diagrams

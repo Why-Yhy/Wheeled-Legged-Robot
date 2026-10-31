@@ -1,7 +1,11 @@
-# assets | 资料
+# assets
 
-图、清单、论文什么的，零碎东西放这。
+结构图、零件清单和实物照片。
 
-Figures, BOM and other odds and ends live here.
+- `img/`：结构图、装配照片
 
-img/ - 结构图和实机照片 | build photos and diagrams
+---
+
+Diagrams, bill of materials and photos.
+
+- `img/`: diagrams and assembly photos

@@ -1,11 +1,11 @@
-# src | 源码 Source Code
+# src | 代码
 
-中文：核心代码按模块归档于此。原理先行，逐层落地。
+机器人的代码都住这儿，按模块分家。
 
-English: The heart of the robot, organized by module. Theory first, code second.
+All the robot's code lives here, one folder per module.
 
-motor/ - 电机驱动 | Motor drivers
+motor/ - 电机驱动 | motor drivers
 
-balance/ - 平衡控制 (PID / LQR) | Balance control
+balance/ - 平衡控制，PID 和 LQR 写在这 | the balance loop
 
-kinematics/ - 五杆运动学正逆解 | Five-bar kinematics
+kinematics/ - 五杆正逆解 | five-bar kinematics

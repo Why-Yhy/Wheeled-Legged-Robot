@@ -21,4 +21,5 @@ A wheel-legged robot built on a five-bar linkage. Forward kinematics is done; in
 ## References
 
 - Kevin M. Lynch, Frank C. Park. *Modern Robotics: Mechanics, Planning, and Control*. Cambridge University Press, 2017.
-- Modern Robotics lecture series (Northwestern University): [playlist](https://www.youtube.com/watch?v=jVu-Hijns70&list=PLggLP4f-rq02vX0OQQ5vrCxbJrzamYDfx) / [single lecture](https://www.youtube.com/watch?v=E_RDCFOlJx4)
+- Modern Robotics lecture series (Northwestern University): [playlist](https://www.youtube.com/watch?v=jVu-Hijns70&list=PLggLP4f-rq02vX0OQQ5vrCxbJrzamYDfx)
+- MATLAB LQR course: [video](https://www.youtube.com/watch?v=E_RDCFOlJx4)

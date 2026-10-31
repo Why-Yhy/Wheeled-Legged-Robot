@@ -1,9 +1,9 @@
-# docs | 学习笔记 Study Notes
+# docs | 学习笔记
 
-中文：一个主题一篇笔记，公式推导与板书截图配套，学习轨迹摊开可查。
+学一步记一步，推过的公式和板书截图都塞在这，忘了就回来翻。
 
-English: One topic per file - derivations paired with whiteboard captures, the learning trail kept in the open.
+Notes as I go - derivations and whiteboard captures, for the day I forget them.
 
-五杆正解.md - 运动学正解推导 | Forward kinematics
+五杆正解.md - 运动学正解，目前推得最顺的一篇 | forward kinematics
 
-img/ - 板书截图 | Whiteboard captures
+img/ - 板书截图 | whiteboard captures

@@ -22,4 +22,4 @@
 
 - Kevin M. Lynch, Frank C. Park. *Modern Robotics: Mechanics, Planning, and Control*. Cambridge University Press, 2017.
 - Modern Robotics 课程视频（Northwestern University）：[播放列表](https://www.youtube.com/watch?v=jVu-Hijns70&list=PLggLP4f-rq02vX0OQQ5vrCxbJrzamYDfx)
-- MATLAB LQR 课程视频：[链接](https://www.youtube.com/watch?v=E_RDCFOlJx4)
+- [What Is Linear Quadratic Regulator (LQR) Optimal Control? | State Space, Part 4](https://www.youtube.com/watch?v=E_RDCFOlJx4)（MATLAB Tech Talks）

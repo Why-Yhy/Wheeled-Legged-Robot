@@ -1,9 +1,13 @@
-# docs | 学习笔记
+# docs
 
-学一步记一步，推过的公式和板书截图都塞在这，忘了就回来翻。
+学习笔记，一个主题一篇，文件名就是主题。
 
-Notes as I go - derivations and whiteboard captures, for the day I forget them.
+- `五杆正解.md`：五杆机构运动学正解的推导
+- `img/`：板书和推导过程截图
 
-五杆正解.md - 运动学正解，目前推得最顺的一篇 | forward kinematics
+---
 
-img/ - 板书截图 | whiteboard captures
+Notes, one topic per file, named after the topic.
+
+- `五杆正解.md`: derivation of the five-bar forward kinematics
+- `img/`: whiteboard captures

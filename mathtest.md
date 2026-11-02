@@ -1,9 +1,11 @@
-A: $\boldsymbol{x^2+y^2=1}$
+<div align="center"><h3>α² + β² = 1</h3></div>
 
-B: $\mathbf{x^2+y^2=1}$
+<h3 align="center">α² + β² = 1</h3>
 
-C: ${\bf x^2+y^2=1}$
+<p align="center"><big><strong>α² + β² = 1</strong></big></p>
 
-D: $\pmb{x^2+y^2=1}$
+<p align="center"><strong>α² + β² = 1</strong></p>
 
-E: $x^2+y^2=1$
+## 正文标题 h2
+
+普通正文 α² + β² = 1

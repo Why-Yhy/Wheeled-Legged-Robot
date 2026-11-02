@@ -1,11 +1,9 @@
-<div align="center"><h3>α² + β² = 1</h3></div>
+<table><tr><td>$$\alpha = \psi \pm \arccos\frac{l_1^2+r^2-l_2^2}{2l_1r}$$</td></tr></table>
 
-<h3 align="center">α² + β² = 1</h3>
+|  |
+|:--:|
+| $$\beta = \chi \pm \arccos\frac{l_4^2+s^2-l_3^2}{2l_4s}$$ |
 
-<p align="center"><big><strong>α² + β² = 1</strong></big></p>
+> $$\theta_1 = \varphi \pm \arccos\frac{l_2^2+d^2-l_3^2}{2l_2d}$$
 
-<p align="center"><strong>α² + β² = 1</strong></p>
-
-## 正文标题 h2
-
-普通正文 α² + β² = 1
+普通段落对比文字。

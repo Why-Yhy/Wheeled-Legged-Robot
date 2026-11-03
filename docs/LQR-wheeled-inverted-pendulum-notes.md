@@ -280,7 +280,7 @@ $$
 \boxed{
 \begin{cases}
 (M+m)\ddot x+mh\cos\theta\ddot\theta
--mh\sin\theta\dot\theta^2=Q_x\\[5pt]
+-mh\sin\theta\dot\theta^2=Q_x\\
 mh\cos\theta\ddot x+(I+mh^2)\ddot\theta
 -mgh\sin\theta=Q_\theta
 \end{cases}
@@ -484,7 +484,7 @@ $$
 
 $$
 \begin{cases}
-(M+m)\ddot x+mh\ddot\theta=\dfrac{\tau}{r}\\[5pt]
+(M+m)\ddot x+mh\ddot\theta=\dfrac{\tau}{r}\\
 mh\ddot x+(I+mh^2)\ddot\theta-mgh\theta=-\tau
 \end{cases}
 $$

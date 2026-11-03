@@ -337,8 +337,7 @@ mh&I+mh^2
 \begin{bmatrix}
 \ddot x\\
 \ddot\theta
-\end{bmatrix}
-=
+\end{bmatrix}=
 \begin{bmatrix}
 Q_x\\
 Q_\theta+mgh\theta
@@ -421,8 +420,7 @@ H
 \begin{bmatrix}
 \ddot x\\
 \ddot\theta
-\end{bmatrix}
-=
+\end{bmatrix}=
 \begin{bmatrix}
 Q_x\\
 Q_\theta+mgh\theta
@@ -436,8 +434,7 @@ $$
 \begin{bmatrix}
 \ddot x\\
 \ddot\theta
-\end{bmatrix}
-=
+\end{bmatrix}=
 H^{-1}
 \begin{bmatrix}
 Q_x\\
@@ -496,8 +493,7 @@ H
 \begin{bmatrix}
 \ddot x\\
 \ddot\theta
-\end{bmatrix}
-=
+\end{bmatrix}=
 \begin{bmatrix}
 \tau/r\\
 mgh\theta-\tau
@@ -510,8 +506,7 @@ $$
 \begin{bmatrix}
 \ddot x\\
 \ddot\theta
-\end{bmatrix}
-=
+\end{bmatrix}=
 \frac1\Delta
 \begin{bmatrix}
 I+mh^2&-mh\\

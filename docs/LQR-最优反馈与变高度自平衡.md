@@ -1,11 +1,13 @@
 # 轮足机器人 LQR 控制：最优反馈设计与变高度自平衡
 
-
+> 两节课程合并笔记
+> 第一节：LQR 最优反馈矩阵的设计与求解
+> 第二节：LQR 在轮足机器人上的应用及变高度自平衡
 
 **学习路线**
 
 $$
-\huge\pmb{\boxed{\text{动力学建模}\rightarrow\text{状态反馈}\rightarrow\text{代价函数}\rightarrow\text{求解 }K\rightarrow\text{实机控制}\rightarrow\text{变高度控制}}}
+\text{动力学建模}\rightarrow\text{状态反馈}\rightarrow\text{代价函数}\rightarrow\text{求解 }K\rightarrow\text{实机控制}\rightarrow\text{变高度控制}
 $$
 
 ---
@@ -17,7 +19,7 @@ $$
 前两节已经把轮足机器人简化成倒立摆：写动能、势能，用拉格朗日方程建立动力学模型，最终整理成状态空间方程。
 
 $$
-\huge\pmb{\boxed{\dot{\boldsymbol{x}}=A\boldsymbol{x}+Bu}}
+\dot{\boldsymbol{x}}=A\boldsymbol{x}+Bu
 $$
 
 - $\boldsymbol{x}$：状态向量，描述机器人当前的运动状态；
@@ -29,10 +31,10 @@ $$
 可以把方程拆成两半理解：
 
 $$
-\huge\pmb{\underbrace{A\boldsymbol{x}}_{\text{系统自身的运动趋势}}+\underbrace{Bu}_{\text{控制输入的影响}}=\underbrace{\dot{\boldsymbol{x}}}_{\text{最终状态变化率}}}
+\underbrace{A\boldsymbol{x}}_{\text{系统自身的运动趋势}}+\underbrace{Bu}_{\text{控制输入的影响}}=\underbrace{\dot{\boldsymbol{x}}}_{\text{最终状态变化率}}
 $$
 
-**理解重点**：$A$、$B$ 描述机器人本身的动力学特性，$u$ 才是我们能主动施加的量。
+**理解重点**： $A$、 $B$ 描述机器人本身的动力学特性， $u$ 才是我们能主动施加的量。
 
 ## 2. 引入状态反馈控制
 
@@ -41,7 +43,7 @@ $$
 LQR 使用的状态反馈控制律：
 
 $$
-\huge\pmb{\boxed{u=-K\boldsymbol{x}}}
+u=-K\boldsymbol{x}
 $$
 
 - $K$：状态反馈增益矩阵（反馈矩阵）；
@@ -51,28 +53,28 @@ $$
 设系统有四个状态：
 
 $$
-\huge\pmb{\boldsymbol{x}=
+\boldsymbol{x}=
 \begin{bmatrix}
 x_1\\
 x_2\\
 x_3\\
 x_4
-\end{bmatrix}}
+\end{bmatrix}
 $$
 
 则反馈矩阵是一个行向量：
 
 $$
-\huge\pmb{K=
+K=
 \begin{bmatrix}
 k_1&k_2&k_3&k_4
-\end{bmatrix}}
+\end{bmatrix}
 $$
 
 代入控制律：
 
 $$
-\huge\pmb{u=
+u=
 -\begin{bmatrix}
 k_1&k_2&k_3&k_4
 \end{bmatrix}
@@ -81,13 +83,13 @@ x_1\\
 x_2\\
 x_3\\
 x_4
-\end{bmatrix}}
+\end{bmatrix}
 $$
 
 展开：
 
 $$
-\huge\pmb{\boxed{u=-(k_1x_1+k_2x_2+k_3x_3+k_4x_4)}}
+u=-(k_1x_1+k_2x_2+k_3x_3+k_4x_4)
 $$
 
 每个状态都参与控制量的计算，对应的增益决定它的影响有多大。
@@ -97,31 +99,31 @@ $$
 已有两个式子：
 
 $$
-\huge\pmb{\dot{\boldsymbol{x}}=A\boldsymbol{x}+Bu,
+\dot{\boldsymbol{x}}=A\boldsymbol{x}+Bu,
 \qquad
-u=-K\boldsymbol{x}}
+u=-K\boldsymbol{x}
 $$
 
 把控制律代入状态方程：
 
 $$
-\huge\pmb{\dot{\boldsymbol{x}}=A\boldsymbol{x}+B(-K\boldsymbol{x})}
+\dot{\boldsymbol{x}}=A\boldsymbol{x}+B(-K\boldsymbol{x})
 $$
 
 $$
-\huge\pmb{\dot{\boldsymbol{x}}=A\boldsymbol{x}-BK\boldsymbol{x}}
+\dot{\boldsymbol{x}}=A\boldsymbol{x}-BK\boldsymbol{x}
 $$
 
 提公因子 $\boldsymbol{x}$：
 
 $$
-\huge\pmb{\boxed{\dot{\boldsymbol{x}}=(A-BK)\boldsymbol{x}}}
+\dot{\boldsymbol{x}}=(A-BK)\boldsymbol{x}
 $$
 
 其中
 
 $$
-\huge\pmb{\boxed{A-BK}}
+A-BK
 $$
 
 称为**闭环系统矩阵**。
@@ -144,7 +146,7 @@ $$
 连续时间、无限时域的 LQR 代价函数：
 
 $$
-\huge\pmb{\boxed{J=\int_0^\infty\left(\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}+u^{\mathrm T}Ru\right)dt}}
+J=\int_0^\infty\left(\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}+u^{\mathrm T}Ru\right)dt
 $$
 
 LQR 的目标：找合适的 $K$，让 $J$ 最小。
@@ -152,25 +154,25 @@ LQR 的目标：找合适的 $K$，让 $J$ 最小。
 ### 5.1 第一项：状态偏差代价
 
 $$
-\huge\pmb{\boxed{\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}}}
+\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}
 $$
 
-衡量机器人偏离目标状态的程度，$Q$ 是状态权重矩阵。若 $Q$ 取对角阵
+衡量机器人偏离目标状态的程度， $Q$ 是状态权重矩阵。若 $Q$ 取对角阵
 
 $$
-\huge\pmb{Q=
+Q=
 \begin{bmatrix}
 q_1&0&0&0\\
 0&q_2&0&0\\
 0&0&q_3&0\\
 0&0&0&q_4
-\end{bmatrix}}
+\end{bmatrix}
 $$
 
 则
 
 $$
-\huge\pmb{\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}=q_1x_1^2+q_2x_2^2+q_3x_3^2+q_4x_4^2}
+\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}=q_1x_1^2+q_2x_2^2+q_3x_3^2+q_4x_4^2
 $$
 
 每个状态各配一个权重：
@@ -183,19 +185,19 @@ $$
 ### 5.2 第二项：控制输入代价
 
 $$
-\huge\pmb{\boxed{u^{\mathrm T}Ru}}
+u^{\mathrm T}Ru
 $$
 
-衡量控制输入的大小，$R$ 是控制权重矩阵。单输入系统里 $R$ 退化成标量 $r$：
+衡量控制输入的大小， $R$ 是控制权重矩阵。单输入系统里 $R$ 退化成标量 $r$：
 
 $$
-\huge\pmb{u^{\mathrm T}Ru=ru^2}
+u^{\mathrm T}Ru=ru^2
 $$
 
 - $R$ 越大，越不愿意用大扭矩，控制偏保守；
 - $R$ 越小，越舍得给扭矩，响应更猛。
 
-对本课程，$u$ 是轮子扭矩，所以 $R$ 直接决定"舍不舍得踩电门"。
+对本课程， $u$ 是轮子扭矩，所以 $R$ 直接决定"舍不舍得踩电门"。
 
 ### 5.3 Q 和 R 的关系
 
@@ -220,21 +222,21 @@ LQR 就是在这两者之间找最优平衡。
 已知
 
 $$
-\huge\pmb{\dot{\boldsymbol{x}}=A\boldsymbol{x}+Bu,
+\dot{\boldsymbol{x}}=A\boldsymbol{x}+Bu,
 \qquad
 u=-K\boldsymbol{x},
 \qquad
-J=\int_0^\infty\left(\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}+u^{\mathrm T}Ru\right)dt}
+J=\int_0^\infty\left(\boldsymbol{x}^{\mathrm T}Q\boldsymbol{x}+u^{\mathrm T}Ru\right)dt
 $$
 
-问题变成：已知 $A$、$B$、$Q$、$R$，怎么求让 $J$ 最小的 $K$。
+问题变成：已知 $A$、 $B$、 $Q$、 $R$，怎么求让 $J$ 最小的 $K$。
 
 核心数学工具是连续时间代数 Riccati 方程。
 
 ### 6.1 Riccati 方程
 
 $$
-\huge\pmb{\boxed{A^{\mathrm T}P+PA-PBR^{-1}B^{\mathrm T}P+Q=0}}
+A^{\mathrm T}P+PA-PBR^{-1}B^{\mathrm T}P+Q=0
 $$
 
 解出矩阵 $P$。注意这个 $P$ 是方程的解，不是我们设的权重 $Q$。
@@ -242,13 +244,13 @@ $$
 ### 6.2 由 P 求 K
 
 $$
-\huge\pmb{\boxed{K=R^{-1}B^{\mathrm T}P}}
+K=R^{-1}B^{\mathrm T}P
 $$
 
 完整链条：
 
 $$
-\huge\pmb{\boxed{(A,B,Q,R)\rightarrow P\rightarrow K\rightarrow u=-K\boldsymbol{x}}}
+(A,B,Q,R)\rightarrow P\rightarrow K\rightarrow u=-K\boldsymbol{x}
 $$
 
 实际使用时不用手解 Riccati 方程，MATLAB 有现成函数。
@@ -258,8 +260,8 @@ $$
 流程：
 
 1. 按动力学模型定义物理参数；
-2. 构造矩阵 $A$、$B$；
-3. 设置权重 $Q$、$R$；
+2. 构造矩阵 $A$、 $B$；
+3. 设置权重 $Q$、 $R$；
 4. 调 `lqr` 求反馈矩阵 $K$。
 
 示例：
@@ -279,7 +281,7 @@ K = lqr(A, B, Q, R);
 
 `K = lqr(A, B, Q, R);` 就是整个设计里最关键的一行。
 
-注意：示例里的 $Q$、$R$ 只是课程取值，不代表适用于所有轮足机器人。最后得到的 $K$ 才是嵌入式程序要用的反馈矩阵。
+注意：示例里的 $Q$、 $R$ 只是课程取值，不代表适用于所有轮足机器人。最后得到的 $K$ 才是嵌入式程序要用的反馈矩阵。
 
 ---
 
@@ -292,40 +294,40 @@ K = lqr(A, B, Q, R);
 课程先固定腿高：
 
 $$
-\huge\pmb{\boxed{H=0.13\ \text{m}}}
+H=0.13\ \text{m}
 $$
 
 在这个高度下算出一组反馈矩阵：
 
 $$
-\huge\pmb{K=
+K=
 \begin{bmatrix}
 k_1&k_2&k_3&k_4
-\end{bmatrix}}
+\end{bmatrix}
 $$
 
 运行时不断读当前状态
 
 $$
-\huge\pmb{\boldsymbol{x}=
+\boldsymbol{x}=
 \begin{bmatrix}
 x_1\\
 x_2\\
 x_3\\
 x_4
-\end{bmatrix}}
+\end{bmatrix}
 $$
 
 代入
 
 $$
-\huge\pmb{\boxed{u=-K\boldsymbol{x}}}
+u=-K\boldsymbol{x}
 $$
 
 展开：
 
 $$
-\huge\pmb{\boxed{u=-(k_1x_1+k_2x_2+k_3x_3+k_4x_4)}}
+u=-(k_1x_1+k_2x_2+k_3x_3+k_4x_4)
 $$
 
 算出来的 $u$ 作为轮子目标扭矩，交给电机程序执行。
@@ -356,7 +358,7 @@ $$
 所以实机程序里最核心就一条公式：
 
 $$
-\huge\pmb{\boxed{u=-K\boldsymbol{x}}}
+u=-K\boldsymbol{x}
 $$
 
 ## 9. 为什么固定高度的 K 不能直接用
@@ -366,59 +368,59 @@ $$
 模型里，腿高变化会改变摆杆质心到轮心的距离 $H$，而 $H$ 是动力学模型里的关键几何参数。腿高一变，动力学特性就变：
 
 $$
-\huge\pmb{A=A(H),
+A=A(H),
 \qquad
-B=B(H)}
+B=B(H)
 $$
 
-而 $K$ 由 $A$、$B$、$Q$、$R$ 决定：
+而 $K$ 由 $A$、 $B$、 $Q$、 $R$ 决定：
 
 $$
-\huge\pmb{K=\operatorname{LQR}(A,B,Q,R)}
+K=\mathrm{LQR}(A,B,Q,R)
 $$
 
 所以
 
 $$
-\huge\pmb{\boxed{K=K(H)}}
+K=K(H)
 $$
 
-也就是说：$H=0.13\ \text{m}$ 下算出来的 $K$，只对那个高度的模型成立；换了高度，原来的 $K$ 不一定还有理想效果。
+也就是说： $H=0.13\ \text{m}$ 下算出来的 $K$，只对那个高度的模型成立；换了高度，原来的 $K$ 不一定还有理想效果。
 
 ## 10. 不同高度分别算 K
 
 课程的第一个办法：选低、中、高三个典型高度，分别求 $K$。
 
-设三个高度为 $H_1$、$H_2$、$H_3$，分别构造
+设三个高度为 $H_1$、 $H_2$、 $H_3$，分别构造
 
 $$
-\huge\pmb{A_1=A(H_1),\ B_1=B(H_1),\qquad
+A_1=A(H_1),\ B_1=B(H_1),\qquad
 A_2=A(H_2),\ B_2=B(H_2),\qquad
-A_3=A(H_3),\ B_3=B(H_3)}
+A_3=A(H_3),\ B_3=B(H_3)
 $$
 
 再分别求解：
 
 $$
-\huge\pmb{K_1=\operatorname{LQR}(A_1,B_1,Q,R),
+K_1=\mathrm{LQR}(A_1,B_1,Q,R),
 \quad
-K_2=\operatorname{LQR}(A_2,B_2,Q,R),
+K_2=\mathrm{LQR}(A_2,B_2,Q,R),
 \quad
-K_3=\operatorname{LQR}(A_3,B_3,Q,R)}
+K_3=\mathrm{LQR}(A_3,B_3,Q,R)
 $$
 
 得到三个高度下的反馈矩阵：
 
 $$
-\huge\pmb{K_1=\begin{bmatrix}k_1(H_1)&k_2(H_1)&k_3(H_1)&k_4(H_1)\end{bmatrix}}
+K_1=\begin{bmatrix}k_1(H_1)&k_2(H_1)&k_3(H_1)&k_4(H_1)\end{bmatrix}
 $$
 
 $$
-\huge\pmb{K_2=\begin{bmatrix}k_1(H_2)&k_2(H_2)&k_3(H_2)&k_4(H_2)\end{bmatrix}}
+K_2=\begin{bmatrix}k_1(H_2)&k_2(H_2)&k_3(H_2)&k_4(H_2)\end{bmatrix}
 $$
 
 $$
-\huge\pmb{K_3=\begin{bmatrix}k_1(H_3)&k_2(H_3)&k_3(H_3)&k_4(H_3)\end{bmatrix}}
+K_3=\begin{bmatrix}k_1(H_3)&k_2(H_3)&k_3(H_3)&k_4(H_3)\end{bmatrix}
 $$
 
 实机测试可以验证每个高度下是否都能自平衡。
@@ -430,25 +432,25 @@ $$
 做法：对 $K$ 里的四个元素分别做二次多项式拟合。
 
 $$
-\huge\pmb{k_i(H)=a_iH^2+b_iH+c_i,\qquad i=1,2,3,4}
+k_i(H)=a_iH^2+b_iH+c_i,\qquad i=1,2,3,4
 $$
 
 展开就是四组：
 
 $$
-\huge\pmb{k_1(H)=a_1H^2+b_1H+c_1}
+k_1(H)=a_1H^2+b_1H+c_1
 $$
 
 $$
-\huge\pmb{k_2(H)=a_2H^2+b_2H+c_2}
+k_2(H)=a_2H^2+b_2H+c_2
 $$
 
 $$
-\huge\pmb{k_3(H)=a_3H^2+b_3H+c_3}
+k_3(H)=a_3H^2+b_3H+c_3
 $$
 
 $$
-\huge\pmb{k_4(H)=a_4H^2+b_4H+c_4}
+k_4(H)=a_4H^2+b_4H+c_4
 $$
 
 - $H$：当前腿高；
@@ -458,7 +460,7 @@ $$
 于是只要给一个 $H$，就能算出四个增益：
 
 $$
-\huge\pmb{\boxed{K(H)=\begin{bmatrix}k_1(H)&k_2(H)&k_3(H)&k_4(H)\end{bmatrix}}}
+K(H)=\begin{bmatrix}k_1(H)&k_2(H)&k_3(H)&k_4(H)\end{bmatrix}
 $$
 
 ### 为什么要拟合
@@ -500,13 +502,13 @@ KS(:, 2)   % 不同高度下的 k2
 `polyfit(HS, KS(:, i), 2)`：用二次多项式拟合"高度—第 $i$ 个增益"的关系，返回三个系数
 
 $$
-\huge\pmb{[a_i,\ b_i,\ c_i]}
+[a_i,\ b_i,\ c_i]
 $$
 
 正好对应
 
 $$
-\huge\pmb{k_i(H)=a_iH^2+b_iH+c_i}
+k_i(H)=a_iH^2+b_iH+c_i
 $$
 
 最后每行的系数都存在矩阵 $P$ 里。
@@ -529,7 +531,7 @@ float calculate_k1(float H)
 最终仍是
 
 $$
-\huge\pmb{\boxed{K(H)=\begin{bmatrix}k_1(H)&k_2(H)&k_3(H)&k_4(H)\end{bmatrix}}}
+K(H)=\begin{bmatrix}k_1(H)&k_2(H)&k_3(H)&k_4(H)\end{bmatrix}
 $$
 
 ## 14. 实现变高度 LQR 控制
@@ -542,13 +544,13 @@ $$
 合起来就是变高度控制律：
 
 $$
-\huge\pmb{\boxed{u=-K(H)\boldsymbol{x}}}
+u=-K(H)\boldsymbol{x}
 $$
 
 展开：
 
 $$
-\huge\pmb{\boxed{u=-\left[k_1(H)x_1+k_2(H)x_2+k_3(H)x_3+k_4(H)x_4\right]}}
+u=-\left[k_1(H)x_1+k_2(H)x_2+k_3(H)x_3+k_4(H)x_4\right]
 $$
 
 实时流程：
@@ -573,7 +575,7 @@ $$
 拟合得到的是近似：
 
 $$
-\huge\pmb{K(H)\approx\hat{K}(H)}
+K(H)\approx\hat{K}(H)
 $$
 
 它不等于每个高度重新跑 LQR 的精确最优解。实际要注意：
@@ -624,8 +626,7 @@ $$
 # 第五部分：知识框架
 
 $$
-\huge\pmb{\boxed{
-\begin{gathered}
+\begin{matrix}
 \text{动力学建模}\\
 \Downarrow\\
 \dot{\boldsymbol{x}}=A\boldsymbol{x}+Bu\\
@@ -649,15 +650,28 @@ u=-K\boldsymbol{x}\\
 u=-K(H)\boldsymbol{x}\\
 \Downarrow\\
 \text{实现变高度自平衡}
-\end{gathered}
-}}
+\end{matrix}
 $$
 
 **总结**
 
-怎么根据动力学模型和控制目标，用 LQR 求出最优反馈矩阵 $K$。
+第一节：怎么根据动力学模型和控制目标，用 LQR 求出最优反馈矩阵 $K$。
 
-怎么把 $K$ 用到程序里，并用多项式拟合建立"高度—增益"的关系，让机器人在不同腿高下都能稳住。
+第二节：怎么把 $K$ 用到程序里，并用多项式拟合建立"高度—增益"的关系，让机器人在不同腿高下都能稳住。
 
-从建模、控制器设计，到嵌入式实现和变高度自平衡，闭环就完整了。
+到这儿，从建模、控制器设计，到嵌入式实现和变高度自平衡，闭环就完整了。
 
+---
+
+# 第六部分：课后自测
+
+1. 状态方程里的 $A$ 和 $B$ 分别描述什么？
+2. 为什么把 $u=-K\boldsymbol{x}$ 代入状态方程会得到 $A-BK$？
+3. 代价函数里的 $Q$ 和 $R$ 分别惩罚什么？
+4. 增大 $R$ 后，控制器通常有什么变化？
+5. MATLAB 的 `lqr(A,B,Q,R)` 最终返回什么？
+6. 为什么腿高变了以后，原来的固定 $K$ 可能不好用？
+7. 多项式拟合和 LQR 求解各自负责什么？
+8. 变高度控制里，为什么先按 $H$ 更新 $K(H)$，再算控制输入？
+
+**掌握标准**：能把这八个问题讲清楚，并且能独立从状态方程推出闭环方程，这两节课的核心就算拿下了。

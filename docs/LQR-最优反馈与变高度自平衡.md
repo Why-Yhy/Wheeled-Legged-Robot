@@ -7,6 +7,7 @@ $$
 \text{动力学建模}\rightarrow\text{状态反馈}\rightarrow\text{代价函数}\rightarrow\text{求解 }K\rightarrow\text{实机控制}\rightarrow\text{变高度控制}
 $$
 
+<img src="img/pendulum.png" alt="倒立摆图" width="640">
 ---
 
 # 第一部分：LQR 最优反馈控制器设计

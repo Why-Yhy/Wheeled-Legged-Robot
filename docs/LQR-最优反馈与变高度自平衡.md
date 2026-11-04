@@ -8,7 +8,7 @@ $$
 $$
 
 <img src="img/block diagram.png" alt="倒立摆图" width="640">
----
+
 
 # 第一部分：LQR 最优反馈控制器设计
 

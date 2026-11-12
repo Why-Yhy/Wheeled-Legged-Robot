@@ -6,7 +6,6 @@
 [![RTOS](https://img.shields.io/badge/RTOS-FreeRTOS-green)](#系统结构)
 [![Language](https://img.shields.io/badge/language-C-9cf)](#代码结构)
 
-五连杆腿机构的轮腿式自平衡机器人。已完成运动学正逆解、LQR 自平衡与 VMC 虚拟模型控制，目前处于硬件联调阶段。
 
 
 ## 目录

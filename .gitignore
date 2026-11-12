@@ -1,0 +1,30 @@
+# ---------- Keil MDK 编译中间产物 ----------
+MDK-ARM/CtrlBoard-H7_IMU/
+Objects/
+Listings/
+*.o
+*.crf
+*.d
+*.axf
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.dep
+*.htm
+*.lnp
+*.sct
+*.iex
+*.bak
+*.uvguix.*
+JLinkLog.txt
+JLinkSettings.ini
+
+# ---------- 系统 / 编辑器 ----------
+Thumbs.db
+desktop.ini
+.DS_Store
+*.tmp
+*.log
+.agents/

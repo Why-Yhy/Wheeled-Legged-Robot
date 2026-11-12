@@ -2,9 +2,6 @@
 
 [简体中文](README.md) | English
 
-A self-balancing wheel-legged robot with a five-bar linkage leg mechanism. Kinematics (forward & inverse), LQR balancing and VMC control are implemented; hardware integration is in progress.
-
-![](docs/img/block-diagram.png)
 
 ## Contents
 

@@ -31,6 +31,7 @@
 // 限制值
 #define ROLL_MIN    -0.40f
 #define ROLL_MAX     0.40f
+#define ROLL_LEVEL   (-0.03f) // Use the existing startup roll reference.
 #define LEG_MIN      0.072f
 #define LEG_MAX      0.21f
 #define LEG_DEFAULT  0.08f
@@ -45,6 +46,7 @@
 #define LEG_CHANGE_THRESH 0.0001f
 // 上一次的方向键上状态
 uint8_t xbox_dirUp_last = 0;
+static uint8_t xbox_dirDown_last = 0;
 
 extern chassis_t chassis_move;
 extern INS_t INS;
@@ -122,6 +124,11 @@ void Xbox_data_process(chassis_t *chassis, float dt)
 		// 更新上一次的状态
 		xbox_dirUp_last = xbox.btnDirUp;
 
+	// Track Down in every state so an ignored press is not replayed later.
+	uint8_t dirDown = xbox.btnDirDown;
+	uint8_t dirDown_rise = (dirDown == 1) && (xbox_dirDown_last == 0);
+	xbox_dirDown_last = dirDown;
+
 	// ===================== 控制逻辑：Xbox手柄 =====================
 	if(chassis->start_flag == 1)
 	{
@@ -144,13 +151,22 @@ void Xbox_data_process(chassis_t *chassis, float dt)
 			// 左摇杆横向：累加偏航角目标 turn_set (rad)，由轮毂差动实现转向
 			chassis->turn_set += (float)xbox.joyLHori * RX_TURN_COEFF;
 
-			// 右摇杆横向：累加横滚角目标 roll_set (rad)，两腿支撑力补偿实现倾斜
-			chassis->roll_set += (float)roll_input * LX_ROLL_COEFF;
-			mySaturate(&chassis->roll_set, ROLL_MIN, ROLL_MAX);
+			// Down restores roll only; keep leg_set and ignore this cycle's right-stick input.
+			if (dirDown_rise && chassis->recover_flag == 0
+					&& chassis->jump_flag == 0 && chassis->jump_flag2 == 0)
+			{
+				chassis->roll_set = ROLL_LEVEL;
+			}
+			else
+			{
+				// 右摇杆横向：累加横滚角目标 roll_set (rad)，两腿支撑力补偿实现倾斜
+				chassis->roll_set += (float)roll_input * LX_ROLL_COEFF;
+				mySaturate(&chassis->roll_set, ROLL_MIN, ROLL_MAX);
 
-			// 右摇杆纵向：累加共同腿长目标 leg_set (m)，推前升高、拉后降低
-			chassis->leg_set += -(float)leg_input * LY_LEG_COEFF;
-			mySaturate(&chassis->leg_set, LEG_MIN, LEG_MAX);
+				// 右摇杆纵向：累加共同腿长目标 leg_set (m)，推前升高、拉后降低
+				chassis->leg_set += -(float)leg_input * LY_LEG_COEFF;
+				mySaturate(&chassis->leg_set, LEG_MIN, LEG_MAX);
+			}
 
 			// 检测腿长变化，触发腿标志
 			if(fabsf(chassis->last_leg_set - chassis->leg_set) > LEG_CHANGE_THRESH)
@@ -173,7 +189,7 @@ void Xbox_data_process(chassis_t *chassis, float dt)
 			chassis->x_set = chassis->x_filter;
 			chassis->turn_set = chassis->total_yaw;
 			chassis->leg_set = LEG_DEFAULT;
-			chassis->roll_set = -0.03f;
+			chassis->roll_set = ROLL_LEVEL;
 
 			// 停止时，腿标志置0，这样腿不会持续运动
 			right.leg_flag = 0;

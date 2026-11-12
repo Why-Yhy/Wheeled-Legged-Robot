@@ -30,15 +30,22 @@ param(
 )
 
 $ErrorActionPreference = "Continue"
-Set-Location -LiteralPath $PSScriptRoot
+
+# 脚本可能被放在 tools/ 子目录，自动定位到仓库根目录
+$RepoRoot = $PSScriptRoot
+if (-not (Test-Path -LiteralPath (Join-Path $RepoRoot ".git"))) {
+    $parent = Split-Path -Parent $RepoRoot
+    if (Test-Path -LiteralPath (Join-Path $parent ".git")) { $RepoRoot = $parent }
+}
+Set-Location -LiteralPath $RepoRoot
 
 function Log([string]$msg, [string]$color = "Gray") {
     Write-Host ("[{0}] {1}" -f (Get-Date -Format "HH:mm:ss"), $msg) -ForegroundColor $color
 }
 
 # ---------- 前置检查 ----------
-if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot ".git"))) {
-    Log "这个目录不是 git 仓库：$PSScriptRoot" "Red"
+if (-not (Test-Path -LiteralPath (Join-Path $RepoRoot ".git"))) {
+    Log "这个目录不是 git 仓库：$RepoRoot" "Red"
     Log "请先 git init 并 git remote add origin <仓库地址>，再运行本脚本。" "Yellow"
     Read-Host "按回车退出"
     exit 1
@@ -53,7 +60,7 @@ if ([string]::IsNullOrWhiteSpace($upstream) -or $upstream -match "fatal|no upstr
     exit 1
 }
 
-Log ("开始监听：{0}" -f $PSScriptRoot) "Cyan"
+Log ("开始监听：{0}" -f $RepoRoot) "Cyan"
 Log ("分支 {0} -> {1}，每 {2} 秒检查一次。按 Ctrl+C 停止。" -f $branch, $upstream, $IntervalSec) "Cyan"
 
 $prevStatus     = $null
@@ -95,7 +102,7 @@ while ($true) {
                 # 体积护栏：单个文件超限就整批撤回，绝不提交
                 $tooBig = @()
                 foreach ($f in (git diff --cached --name-only --diff-filter=AM 2>$null)) {
-                    $fi = Get-Item -LiteralPath (Join-Path $PSScriptRoot $f) -ErrorAction SilentlyContinue
+                    $fi = Get-Item -LiteralPath (Join-Path $RepoRoot $f) -ErrorAction SilentlyContinue
                     if ($fi -and $fi.Length -gt ($MaxFileSizeMB * 1MB)) {
                         $tooBig += ("{0}  ({1:N1} MB)" -f $f, ($fi.Length / 1MB))
                     }

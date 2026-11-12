@@ -66,6 +66,16 @@ foreach ($f in $files) {
 
 if ($changed.Count -eq 0) {
     Say "没有检测到改动，仓库已经是最新的。" "Green"
+    $newest = $files | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+    if ($newest) {
+        Say ("最近一次源码修改：{0}  {1}" -f $newest.LastWriteTime.ToString("MM-dd HH:mm"),
+             $newest.FullName.Substring($Source.Length + 1)) "DarkGray"
+    }
+    Push-Location $RepoRoot
+    $lastCommit = & git log -1 --date=format:'%m-%d %H:%M' --format='%h  %ad  %s' 2>$null
+    Pop-Location
+    if ($lastCommit) { Say ("最近一次提交：    {0}" -f $lastCommit) "DarkGray" }
+    Say "如果刚才改过代码却没被检测到，先确认已在编辑器里保存（Ctrl+S）。" "DarkGray"
     if (-not $DryRun) { pause }
     exit 0
 }

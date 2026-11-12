@@ -25,10 +25,12 @@ if ($dirty) {
 }
 
 Say ""
-Say "  最近 15 个版本" "Cyan"
+Say "  最近 30 个版本（● = 改过 src/ 代码的版本）" "Cyan"
 Say "  ------------------------------------------------" "DarkGray"
 
-$lines = & git log -15 --date=format:'%m-%d %H:%M' --format='%h%x09%ad%x09%s'
+$codeShas = @{}
+(& git log -60 --format="%h" -- src 2>$null) | ForEach-Object { if ($_) { $codeShas[$_.Trim()] = $true } }
+$lines = & git log -30 --date=format:'%m-%d %H:%M' --format='%h%x09%ad%x09%s'
 $i = 0
 $commits = @()
 foreach ($ln in $lines) {
@@ -37,7 +39,8 @@ foreach ($ln in $lines) {
     if ($p.Count -lt 3) { continue }
     $i++
     $commits += [pscustomobject]@{ No = $i; Sha = $p[0]; Time = $p[1]; Subject = $p[2] }
-    Write-Host ("  {0,2})  {1}  {2}" -f $i, $p[1], $p[2])
+    $mark = if ($codeShas.ContainsKey($p[0])) { "●" } else { " " }
+    Write-Host ("  {0,2}) {1} {2}  {3}" -f $i, $mark, $p[1], $p[2])
 }
 
 Say "  ------------------------------------------------" "DarkGray"

@@ -40,3 +40,7 @@ secrets.*
 *.zip
 *.7z
 *.rar
+
+# ---------- 本地副本 / 临时目录（不入库）----------
+Changes/
+Wheel-Leg/
